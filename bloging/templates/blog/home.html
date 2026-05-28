@@ -1,0 +1,169 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+
+{% block title %}
+techdesk - by devs, for devs
+{% endblock %}
+
+{% block meta_description %}
+A community blog where developers share tech experiences, tutorials and ideas.
+{% endblock %}
+
+{% block content %}
+
+<!-- HERO SECTION -->
+<section class="td-hero">
+    <div class="container">
+        <div class="row align-items-center g-5">
+            <div class="col-lg-7">
+                <span class="td-eyebrow">
+                    <span class="td-eyebrow-dot"></span>
+                    A community for developers
+                </span>
+                <h1 class="td-hero-title">
+                    Built by devs.<br>
+                    <span class="td-accent">For devs.</span>
+                </h1>
+                <p class="td-hero-lead">
+                    Share what you're building, breaking and learning.
+                    Articles, tutorials and honest takes on AI, ML, web dev
+                    and everything in between.
+                </p>
+                <div class="d-flex flex-wrap gap-2 mt-4">
+                    <a href="#" class="btn td-btn-primary px-4">
+                        <i class="bi bi-pencil-square"></i> Start writing
+                    </a>
+                    <a href="#latest-posts" class="btn td-btn-ghost px-4">
+                        Explore posts <i class="bi bi-arrow-right"></i>
+                    </a>
+                </div>
+                <div class="td-hero-stats mt-5">
+                    <div class="td-stat">
+                        <div class="td-stat-num">1.2k</div>
+                        <div class="td-stat-label">posts</div>
+                    </div>
+                    <div class="td-stat">
+                        <div class="td-stat-num">340</div>
+                        <div class="td-stat-label">writers</div>
+                    </div>
+                    <div class="td-stat">
+                        <div class="td-stat-num">28</div>
+                        <div class="td-stat-label">tags</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-5 d-none d-lg-block">
+                <div class="td-terminal">
+                    <div class="td-terminal-bar">
+                        <span class="td-terminal-dot td-dot-red"></span>
+                        <span class="td-terminal-dot td-dot-yellow"></span>
+                        <span class="td-terminal-dot td-dot-green"></span>
+                        <span class="td-terminal-title">~/techdesk</span>
+                    </div>
+                    <div class="td-terminal-body">
+                        <div class="td-line"><span class="td-prompt">$</span> whoami</div>
+                        <div class="td-line td-out">developer</div>
+                        <div class="td-line"><span class="td-prompt">$</span> cat about.md</div>
+                        <div class="td-line td-out td-comment"># techdesk</div>
+                        <div class="td-line td-out">A blog for sharing tech</div>
+                        <div class="td-line td-out">experiences and ideas.</div>
+                        <div class="td-line"><span class="td-prompt">$</span> ./join.sh</div>
+                        <div class="td-line td-out td-success">[OK] Welcome aboard.</div>
+                        <div class="td-line"><span class="td-prompt">$</span> <span class="td-cursor">_</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- TAG STRIP -->
+<section class="td-tagstrip">
+    <div class="container">
+        <div class="d-flex align-items-center gap-3 flex-wrap">
+            <span class="td-tagstrip-label">Trending:</span>
+            <a href="#" class="td-tag">#AI</a>
+            <a href="#" class="td-tag">#MachineLearning</a>
+            <a href="#" class="td-tag">#Python</a>
+            <a href="#" class="td-tag">#WebDev</a>
+            <a href="#" class="td-tag">#Django</a>
+            <a href="#" class="td-tag">#JavaScript</a>
+            <a href="#" class="td-tag">#DevOps</a>
+            <a href="#" class="td-tag">#CareerAdvice</a>
+        </div>
+    </div>
+</section>
+
+<!-- LATEST POSTS -->
+<section id="latest-posts" class="td-posts py-5">
+    <div class="container">
+        <div class="d-flex justify-content-between align-items-end flex-wrap mb-4">
+            <div>
+                <span class="td-eyebrow"><span class="td-eyebrow-dot"></span> Latest</span>
+                <h2 class="td-section-title mt-2 mb-0">Recent Posts</h2>
+            </div>
+            <a href="#" class="td-link-arrow">View all <i class="bi bi-arrow-right"></i></a>
+        </div>
+
+        {% if posts %}
+        <div class="row g-4">
+            {% for post in posts %}
+            <div class="col-md-6 col-lg-4">
+                <article class="td-card h-100">
+                    <a href="#" class="td-card-thumb-link">
+                        <div class="td-card-thumb" style="background-image: url('{{ post.image }}');"></div>
+                    </a>
+                    <div class="td-card-body">
+                        <div class="td-card-tags">
+                            <a href="#" class="td-tag td-tag-sm">#Tech</a>
+                            <a href="#" class="td-tag td-tag-sm">#Learning</a>
+                        </div>
+                        <h3 class="td-card-title">
+                            <a href="#">{{ post.title }}</a>
+                        </h3>
+                        <p class="td-card-excerpt">
+                            {{ post.content|truncatewords:22 }}
+                        </p>
+                        <div class="td-card-meta">
+                            <div class="td-avatar">{{ post.author|first|upper }}</div>
+                            <div>
+                                <div class="td-card-author">{{ post.author }}</div>
+                                <div class="td-card-date">
+                                    {{ post.date }} <span class="td-card-dot">.</span> 4 min read
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="text-center py-5">
+            <i class="bi bi-journal-code td-empty-icon"></i>
+            <p class="td-empty-text mt-3 mb-0">No posts yet. Be the first to share!</p>
+            <a href="#" class="btn td-btn-primary mt-3">Write a post</a>
+        </div>
+        {% endif %}
+    </div>
+</section>
+
+<!-- CTA STRIP -->
+<section class="td-cta py-5 my-5">
+    <div class="container">
+        <div class="td-cta-box text-center">
+            <h2 class="td-cta-title">Got something to share?</h2>
+            <p class="td-cta-sub">
+                Whether it's a bug you fixed, a model you trained, or a hack you found.
+                The community wants to hear about it.
+            </p>
+            <div class="d-flex justify-content-center gap-2 flex-wrap mt-4">
+                <a href="#" class="btn td-btn-primary px-4">Sign up to post</a>
+                <a href="#" class="btn td-btn-ghost px-4">Already a member? Login</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

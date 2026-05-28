@@ -1,0 +1,166 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+
+{% block title %}
+About - techdesk
+{% endblock %}
+
+{% block meta_description %}
+About techdesk - a community blog where developers share what they're building and learning.
+{% endblock %}
+
+{% block content %}
+
+<!-- ABOUT HERO -->
+<section class="td-hero">
+    <div class="container">
+        <div class="row justify-content-center text-center">
+            <div class="col-lg-8">
+                <span class="td-eyebrow">
+                    <span class="td-eyebrow-dot"></span>
+                    About us
+                </span>
+                <h1 class="td-hero-title">
+                    A home on the internet for
+                    <span class="td-accent">people who build.</span>
+                </h1>
+                <p class="td-hero-lead mx-auto">
+                    techdesk is an open community blog where developers, students and
+                    engineers share their work, their lessons and their honest takes.
+                    No paywalls. No gatekeeping. Just devs talking shop.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- WHY IT EXISTS -->
+<section class="py-5">
+    <div class="container">
+        <div class="row align-items-center g-5">
+            <div class="col-lg-6">
+                <div class="td-terminal">
+                    <div class="td-terminal-bar">
+                        <span class="td-terminal-dot td-dot-red"></span>
+                        <span class="td-terminal-dot td-dot-yellow"></span>
+                        <span class="td-terminal-dot td-dot-green"></span>
+                        <span class="td-terminal-title">~/mission.md</span>
+                    </div>
+                    <div class="td-terminal-body">
+                        <div class="td-line td-out td-comment"># Why techdesk?</div>
+                        <div class="td-line td-out">&nbsp;</div>
+                        <div class="td-line td-out">- Learning out loud</div>
+                        <div class="td-line td-out">- Sharing real bugs</div>
+                        <div class="td-line td-out">- Helping each other</div>
+                        <div class="td-line td-out">- No corporate fluff</div>
+                        <div class="td-line td-out">&nbsp;</div>
+                        <div class="td-line td-out td-success">Built different. On purpose.</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <span class="td-eyebrow"><span class="td-eyebrow-dot"></span> Why it exists</span>
+                <h2 class="td-section-title mt-2">A place to think out loud.</h2>
+                <p class="mt-3">
+                    Most "tech blogs" are written by big companies for SEO traffic.
+                    They're polished, generic and forgettable.
+                </p>
+                <p>
+                    techdesk is the opposite. It's where you write the article you wish
+                    you'd found on Google at 2am while debugging. It's the raw, real,
+                    sometimes-messy story of how something actually got built.
+                </p>
+                <p>
+                    Whether you're a student writing your first post, or a senior engineer
+                    sharing a war story - this is your desk too.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- VALUES -->
+<section class="py-5">
+    <div class="container">
+        <div class="text-center mb-5">
+            <span class="td-eyebrow"><span class="td-eyebrow-dot"></span> What we stand for</span>
+            <h2 class="td-section-title mt-2">Three rules of the desk.</h2>
+        </div>
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="td-value-card h-100">
+                    <div class="td-value-icon"><i class="bi bi-unlock"></i></div>
+                    <h5 class="mt-3">Open knowledge</h5>
+                    <p class="td-muted mb-0">
+                        Every post is free to read. No paywalls, no signup-walls to read articles.
+                        Knowledge spreads better when it's free.
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="td-value-card h-100">
+                    <div class="td-value-icon"><i class="bi bi-chat-square-text"></i></div>
+                    <h5 class="mt-3">Real over polished</h5>
+                    <p class="td-muted mb-0">
+                        A messy how-I-fixed-it post beats a sanitized tutorial every time.
+                        Write like you'd explain it to a friend.
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="td-value-card h-100">
+                    <div class="td-value-icon"><i class="bi bi-people"></i></div>
+                    <h5 class="mt-3">Help juniors</h5>
+                    <p class="td-muted mb-0">
+                        Remember when you were stuck on your first bug? Write the post you needed.
+                        Someone, somewhere, is stuck on the same thing right now.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- TOPICS WELCOMED -->
+<section class="py-5">
+    <div class="container">
+        <div class="text-center mb-4">
+            <span class="td-eyebrow"><span class="td-eyebrow-dot"></span> What to write about</span>
+            <h2 class="td-section-title mt-2">Anything tech. Seriously.</h2>
+            <p class="td-muted mt-3">If it has anything to do with code, computers or building things - it belongs here.
+            </p>
+        </div>
+        <div class="d-flex justify-content-center gap-2 flex-wrap mt-4">
+            <span class="td-tag">#AI</span>
+            <span class="td-tag">#MachineLearning</span>
+            <span class="td-tag">#WebDev</span>
+            <span class="td-tag">#Python</span>
+            <span class="td-tag">#JavaScript</span>
+            <span class="td-tag">#Django</span>
+            <span class="td-tag">#React</span>
+            <span class="td-tag">#DataScience</span>
+            <span class="td-tag">#DevOps</span>
+            <span class="td-tag">#OpenSource</span>
+            <span class="td-tag">#CareerAdvice</span>
+            <span class="td-tag">#Tutorials</span>
+            <span class="td-tag">#ProjectBuilds</span>
+            <span class="td-tag">#StudentLife</span>
+        </div>
+    </div>
+</section>
+
+<!-- CTA -->
+<section class="td-cta py-5 my-5">
+    <div class="container">
+        <div class="td-cta-box text-center">
+            <h2 class="td-cta-title">Pull up a chair.</h2>
+            <p class="td-cta-sub">Sign up in 30 seconds and write your first post today.</p>
+            <div class="d-flex justify-content-center gap-2 flex-wrap mt-4">
+                <a href="#" class="btn td-btn-primary px-4">Sign up</a>
+                <a href="#" class="btn td-btn-ghost px-4">Login</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
