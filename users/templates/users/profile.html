@@ -1,0 +1,128 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+
+{% block title %}
+{{ profile_user.username }} - techdesk
+{% endblock %}
+
+{% block meta_description %}
+Profile of {{ profile_user.username }} on techdesk.
+{% endblock %}
+
+
+{% block content %}
+
+<!-- PROFILE HEADER -->
+<section class="profile-wrap">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-9">
+                <div class="profile-card">
+
+                    <div class="profile-header">
+
+                        <!-- Avatar: first letter of username -->
+                        <div class="profile-avatar">
+                            {{ profile_user.username|first|upper }}
+                        </div>
+
+                        <!-- Name, username, meta -->
+                        <div class="profile-info">
+                            <h1 class="profile-name">
+                                {% if profile_user.first_name or profile_user.last_name %}
+                                {{ profile_user.first_name }} {{ profile_user.last_name }}
+                                {% else %}
+                                {{ profile_user.username }}
+                                {% endif %}
+                            </h1>
+                            <p class="profile-username">@{{ profile_user.username }}</p>
+
+                            <div class="profile-meta">
+                                <span><i class="bi bi-calendar3"></i> Joined {{ profile_user.date_joined|date:"M Y"
+                                    }}</span>
+                                {% if profile_user.email and user == profile_user %}
+                                <span><i class="bi bi-envelope"></i> {{ profile_user.email }}</span>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <!-- Action button: Edit if own profile, otherwise placeholder -->
+                        <div class="profile-actions">
+                            {% if user.is_authenticated and user == profile_user %}
+                            <a href="#" class="profile-btn-primary">
+                                <i class="bi bi-pencil"></i> Edit profile
+                            </a>
+                            {% else %}
+                            <a href="#" class="profile-btn-ghost">
+                                <i class="bi bi-person-plus"></i> Follow
+                            </a>
+                            {% endif %}
+                        </div>
+
+                    </div>
+
+                    <!-- Stats -->
+                    <div class="profile-stats">
+                        <div class="profile-stat">
+                            <div class="profile-stat-num">{{ posts|length }}</div>
+                            <div class="profile-stat-label">Posts</div>
+                        </div>
+                        <div class="profile-stat">
+                            <div class="profile-stat-num">0</div>
+                            <div class="profile-stat-label">Followers</div>
+                        </div>
+                        <div class="profile-stat">
+                            <div class="profile-stat-num">0</div>
+                            <div class="profile-stat-label">Following</div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- POSTS BY USER -->
+<section class="profile-posts">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-9">
+
+                <h2 class="profile-posts-title">
+                    Posts <span>({{ posts|length }})</span>
+                </h2>
+
+                {% if posts %}
+                {% for post in posts %}
+                <article class="profile-post">
+                    <h3 class="profile-post-title">
+                        <a href="#">{{ post.title }}</a>
+                    </h3>
+                    <p class="profile-post-excerpt">
+                        {{ post.content|truncatewords:28 }}
+                    </p>
+                    <div class="profile-post-meta">
+                        <span><i class="bi bi-calendar3"></i> {{ post.date|date:"M d, Y" }}</span>
+                        <span class="dot">.</span>
+                        <span>4 min read</span>
+                    </div>
+                </article>
+                {% endfor %}
+                {% else %}
+                <div class="profile-empty">
+                    <i class="bi bi-journal-text"></i>
+                    {% if user == profile_user %}
+                    <p>You haven't published anything yet. Write your first post!</p>
+                    {% else %}
+                    <p>{{ profile_user.username }} hasn't published anything yet.</p>
+                    {% endif %}
+                </div>
+                {% endif %}
+
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

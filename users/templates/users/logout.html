@@ -1,0 +1,52 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+
+{% block title %}
+Signed out - techdesk
+{% endblock %}
+
+{% block meta_description %}
+You have been signed out of techdesk.
+{% endblock %}
+
+
+{% block content %}
+
+<section class="auth-page">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8 col-lg-6 col-xl-5">
+
+                <!-- Logo (small, above card) -->
+                <div class="text-center mb-4">
+                    <a href="{% url 'blog-home' %}" class="auth-logo">
+                        <span class="mark">&lt;/&gt;</span>
+                        <span>techdesk</span>
+                    </a>
+                </div>
+
+                <!-- Card -->
+                <div class="auth-card">
+
+                    <div class="auth-icon">
+                        <i class="bi bi-check-lg"></i>
+                    </div>
+
+                    <h1 class="auth-title">You're signed out</h1>
+                    <p class="auth-sub">
+                        Thanks for visiting. Come back anytime to read or write something new.
+                    </p>
+
+                    <div class="d-flex justify-content-center gap-2 flex-wrap">
+                        <a href="{% url 'login' %}" class="auth-btn-primary">Sign in again</a>
+                        <a href="{% url 'blog-home' %}" class="auth-btn-ghost">Back to home</a>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

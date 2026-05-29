@@ -31,8 +31,11 @@
     <!-- Custom CSS -->
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
 
+    
     {% block extra_css %}
+    <link rel="stylesheet" href="{% static 'style.css' %}">
     {% endblock %}
+    
 </head>
 
 <body>
@@ -76,10 +79,11 @@
                     <a class="btn td-btn-primary btn-sm" href="#">
                         <i class="bi bi-plus-lg"></i> New Post
                     </a>
-                    <a class="btn td-btn-ghost btn-sm" href="#">Logout</a>
+                    <a class="btn td-btn-ghost btn-sm" href="{% url 'profile' %}">Profile</a>
+                    <a class="btn td-btn-ghost btn-sm" href="{% url 'logout' %}">Logout</a>
                     {% else %}
-                    <a class="btn td-btn-ghost btn-sm" href="#">Login</a>
-                    <a class="btn td-btn-primary btn-sm" href="#">Sign up</a>
+                    <a class="btn td-btn-ghost btn-sm" href="{% url 'login' %}">Login</a>
+                    <a class="btn td-btn-primary btn-sm" href="{% url 'register' %}">Sign up</a>
                     {% endif %}
                 </div>
             </div>
@@ -88,6 +92,13 @@
 
     <!-- MAIN CONTENT -->
     <main>
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        {% endfor %}
+
         {% block content %}
         {% endblock %}
     </main>
