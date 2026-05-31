@@ -126,7 +126,9 @@ A community blog where developers share tech experiences, tutorials and ideas.
                             {{ post.content|truncatewords:22 }}
                         </p>
                         <div class="td-card-meta">
-                            <div class="td-avatar">{{ post.author.username|first|upper }}</div>
+                        <div class="td-avatar">
+                            <img src="{{ post.author.profile.image.url }}" alt="{{ post.author.username }}" class="td-avatar-img">
+                        </div>
                             <div>
                                 <div class="td-card-author">{{ post.author.username }}</div>
                                 <div class="td-card-date">

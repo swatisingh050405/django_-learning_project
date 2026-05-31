@@ -647,6 +647,22 @@ a:hover {
 .td-footer-social a:hover {
     color: var(--td-accent);
 }
+/* ---------- Avatar (used in post cards) ---------- */
+
+.td-avatar {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.td-avatar-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+}
 
 /* ---------- Form controls ---------- */
 .form-control {
