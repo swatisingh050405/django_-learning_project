@@ -9,6 +9,9 @@ blog_project/
 # Database
 db.sqlite3
 
+# Media Files (YEH WALA COPIED BLOCK ADD KAREIN)
+media/
+
 # VS Code
 .vscode/
 
