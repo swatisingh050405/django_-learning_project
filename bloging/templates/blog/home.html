@@ -11,7 +11,6 @@ A community blog where developers share tech experiences, tutorials and ideas.
 
 {% block content %}
 
-<!-- HERO SECTION -->
 <section class="td-hero">
     <div class="container">
         <div class="row align-items-center g-5">
@@ -30,27 +29,14 @@ A community blog where developers share tech experiences, tutorials and ideas.
                     and everything in between.
                 </p>
                 <div class="d-flex flex-wrap gap-2 mt-4">
-                    <a href="#" class="btn td-btn-primary px-4">
+                    <a href="{% url 'post-create' %}" class="btn td-btn-primary px-4">
                         <i class="bi bi-pencil-square"></i> Start writing
                     </a>
                     <a href="#latest-posts" class="btn td-btn-ghost px-4">
                         Explore posts <i class="bi bi-arrow-right"></i>
                     </a>
                 </div>
-                <div class="td-hero-stats mt-5">
-                    <div class="td-stat">
-                        <div class="td-stat-num">1.2k</div>
-                        <div class="td-stat-label">posts</div>
-                    </div>
-                    <div class="td-stat">
-                        <div class="td-stat-num">340</div>
-                        <div class="td-stat-label">writers</div>
-                    </div>
-                    <div class="td-stat">
-                        <div class="td-stat-num">28</div>
-                        <div class="td-stat-label">tags</div>
-                    </div>
-                </div>
+
             </div>
 
             <div class="col-lg-5 d-none d-lg-block">
@@ -78,7 +64,6 @@ A community blog where developers share tech experiences, tutorials and ideas.
     </div>
 </section>
 
-<!-- TAG STRIP -->
 <section class="td-tagstrip">
     <div class="container">
         <div class="d-flex align-items-center gap-3 flex-wrap">
@@ -95,7 +80,6 @@ A community blog where developers share tech experiences, tutorials and ideas.
     </div>
 </section>
 
-<!-- LATEST POSTS -->
 <section id="latest-posts" class="td-posts py-5">
     <div class="container">
         <div class="d-flex justify-content-between align-items-end flex-wrap mb-4">
@@ -103,7 +87,7 @@ A community blog where developers share tech experiences, tutorials and ideas.
                 <span class="td-eyebrow"><span class="td-eyebrow-dot"></span> Latest</span>
                 <h2 class="td-section-title mt-2 mb-0">Recent Posts</h2>
             </div>
-            <a href="#" class="td-link-arrow">View all <i class="bi bi-arrow-right"></i></a>
+            <a href="{% url 'all-posts-view' %}" class="td-link-arrow">View all <i class="bi bi-arrow-right"></i></a>
         </div>
 
         {% if posts %}
@@ -111,28 +95,48 @@ A community blog where developers share tech experiences, tutorials and ideas.
             {% for post in posts %}
             <div class="col-md-6 col-lg-4">
                 <article class="td-card h-100">
-                    <a href="#" class="td-card-thumb-link">
-                        <div class="td-card-thumb" style="background-image: url('{{ post.image }}');"></div>
+
+                    <a href="{% url 'post-detail' post.pk %}" class="td-card-thumb-link">
+                        {% if post.image %}
+                        <div class="td-card-thumb" style="background-image: url('{{ post.image.url }}');"></div>
+                        {% else %}
+                        <div class="td-card-thumb"
+                            style="background-color: #f3f4f6; display: flex; align-items: center; justify-content: center;">
+                            <i class="bi bi-image text-muted" style="font-size: 2rem;"></i>
+                        </div>
+                        {% endif %}
                     </a>
+
                     <div class="td-card-body">
                         <div class="td-card-tags">
                             <a href="#" class="td-tag td-tag-sm">#Tech</a>
                             <a href="#" class="td-tag td-tag-sm">#Learning</a>
                         </div>
+
                         <h3 class="td-card-title">
-                            <a href="#">{{ post.title }}</a>
+                            <a href="{% url 'post-detail' post.pk %}">{{ post.title }}</a>
                         </h3>
+
                         <p class="td-card-excerpt">
                             {{ post.content|truncatewords:22 }}
                         </p>
+
                         <div class="td-card-meta">
-                        <div class="td-avatar">
-                            <img src="{{ post.author.profile.image.url }}" alt="{{ post.author.username }}" class="td-avatar-img">
-                        </div>
+                            {% if post.author.profile.image %}
+                            <img src="{{ post.author.profile.image.url }}" class="td-avatar"
+                                style="width:36px;height:36px;object-fit:cover;border-radius:50%;">
+                            {% else %}
+                            <div class="td-avatar">{{ post.author.username|first|upper }}</div>
+                            {% endif %}
                             <div>
-                                <div class="td-card-author">{{ post.author.username }}</div>
+                                <div class="td-card-author">
+                                    <a href="{% url 'user-posts' post.author.username %}"
+                                        class="text-decoration-none text-dark fw-bold">
+                                        {{ post.author.username }}
+                                    </a>
+                                </div>
                                 <div class="td-card-date">
-                                    {{ post.date }} <span class="td-card-dot">.</span> 4 min read
+                                    {{ post.created_at|date:"M d, Y" }} <span class="td-card-dot">.</span> 4 min read
                                 </div>
                             </div>
                         </div>
@@ -141,17 +145,38 @@ A community blog where developers share tech experiences, tutorials and ideas.
             </div>
             {% endfor %}
         </div>
+
+        {% if is_paginated %}
+        <div class="d-flex justify-content-center align-items-center gap-3 mt-5 pt-3 border-top">
+            {% if page_obj.has_previous %}
+            <a href="?page={{ page_obj.previous_page_number }}#latest-posts"
+                class="btn btn-sm btn-outline-success px-3">
+                <i class="bi bi-arrow-left"></i> Previous
+            </a>
+            {% endif %}
+
+            <span class="text-muted small fw-medium">
+                Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+            </span>
+
+            {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}#latest-posts" class="btn btn-sm btn-outline-success px-3">
+                Next <i class="bi bi-arrow-right"></i>
+            </a>
+            {% endif %}
+        </div>
+        {% endif %}
+
         {% else %}
         <div class="text-center py-5">
             <i class="bi bi-journal-code td-empty-icon"></i>
             <p class="td-empty-text mt-3 mb-0">No posts yet. Be the first to share!</p>
-            <a href="#" class="btn td-btn-primary mt-3">Write a post</a>
+            <a href="{% url 'post-create' %}" class="btn td-btn-primary mt-3">Write a post</a>
         </div>
         {% endif %}
     </div>
 </section>
 
-<!-- CTA STRIP -->
 <section class="td-cta py-5 my-5">
     <div class="container">
         <div class="td-cta-box text-center">
@@ -161,8 +186,8 @@ A community blog where developers share tech experiences, tutorials and ideas.
                 The community wants to hear about it.
             </p>
             <div class="d-flex justify-content-center gap-2 flex-wrap mt-4">
-                <a href="#" class="btn td-btn-primary px-4">Sign up to post</a>
-                <a href="#" class="btn td-btn-ghost px-4">Already a member? Login</a>
+                <a href="{% url 'register' %}" class="btn td-btn-primary px-4">Sign up to post</a>
+                <a href="{% url 'login' %}" class="btn td-btn-ghost px-4">Already a member? Login</a>
             </div>
         </div>
     </div>

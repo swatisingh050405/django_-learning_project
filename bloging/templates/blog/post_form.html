@@ -1,0 +1,62 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+
+{% block title %}{% if object %}Edit Post{% else %}New Post{% endif %} - techdesk{% endblock %}
+
+{% block content %}
+
+<section class="pf-section">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+
+                <!-- Header -->
+                <div class="pf-header">
+                    <a href="{% url 'blog-home' %}" class="pf-back"><i class="bi bi-arrow-left"></i> Back</a>
+                    <div>
+                        <h1 class="pf-title">{% if object %}<i class="bi bi-pencil-square"></i> Edit Post{% else %}<i
+                                class="bi bi-plus-square"></i> Create New Post{% endif %}</h1>
+                        <p class="pf-sub">{% if object %}Update your post below.{% else %}Share something with the
+                            techdesk community.{% endif %}</p>
+                    </div>
+                </div>
+
+                <!-- Form Card -->
+                <div class="pf-card">
+                    <form method="POST"  enctype="multipart/form-data" novalidate>
+                        {% csrf_token %}
+
+                        {% for field in form %}
+                        <div class="pf-field">
+                            <label for="{{ field.id_for_label }}" class="pf-label">
+                                {{ field.label }}
+                                {% if field.field.required %}<span class="pf-required">*</span>{% endif %}
+                            </label>
+                            {{ field }}
+                            {% if field.help_text %}
+                            <div class="pf-help">{{ field.help_text }}</div>
+                            {% endif %}
+                            {% for error in field.errors %}
+                            <div class="pf-error"><i class="bi bi-exclamation-circle"></i> {{ error }}</div>
+                            {% endfor %}
+                        </div>
+                        {% endfor %}
+
+                        <div class="pf-footer">
+                            <button type="submit" class="pf-btn-primary">
+                                {% if object %}<i class="bi bi-check-lg"></i> Save Changes{% else %}<i
+                                    class="bi bi-send"></i> Publish Post{% endif %}
+                            </button>
+                            <a href="{% if object %}{% url 'post-detail' object.id %}{% else %}{% url 'blog-home' %}{% endif %}"
+                                class="pf-btn-ghost">Cancel</a>
+                        </div>
+
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

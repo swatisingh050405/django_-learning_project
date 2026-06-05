@@ -30,11 +30,9 @@
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
-
     
-    {% block extra_css %}
-    <link rel="stylesheet" href="{% static 'style.css' %}">
-    {% endblock %}
+    <link rel="stylesheet" href="{% static 'user_style.css' %}">
+    
     
 </head>
 
@@ -75,12 +73,17 @@
                 <div class="d-flex align-items-center gap-2 nav-auth">
                     {% if user.is_authenticated %}
                     <span class="nav-greeting">Hi, {{ user.username }}</span>
-                    <a class="btn td-btn-ghost btn-sm" href="#">My Posts</a>
-                    <a class="btn td-btn-primary btn-sm" href="#">
+                    <a class="btn td-btn-ghost btn-sm" href="{% url 'user-posts' user.username %}">My Posts</a>
+                    <a class="btn td-btn-primary btn-sm" href="{% url 'post-create' %}">
                         <i class="bi bi-plus-lg"></i> New Post
                     </a>
                     <a class="btn td-btn-ghost btn-sm" href="{% url 'profile' %}">Profile</a>
-                    <a class="btn td-btn-ghost btn-sm" href="{% url 'logout' %}">Logout</a>
+                    <form action="{% url 'logout' %}" method="post" class="d-inline">
+                        {% csrf_token %}
+                        <button type="submit" class="btn td-btn-ghost btn-sm">
+                            Logout
+                        </button>
+                    </form> 
                     {% else %}
                     <a class="btn td-btn-ghost btn-sm" href="{% url 'login' %}">Login</a>
                     <a class="btn td-btn-primary btn-sm" href="{% url 'register' %}">Sign up</a>

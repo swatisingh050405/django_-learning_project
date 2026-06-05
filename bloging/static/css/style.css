@@ -705,3 +705,574 @@ a:hover {
         padding: 2rem 1.25rem;
     }
 }
+
+/* post_from css */
+.pf-section {
+    min-height: calc(100vh - 70px);
+    background: #fafafa;
+    background-image: radial-gradient(ellipse at top, rgba(5, 150, 105, 0.05), transparent 55%);
+    padding: 3rem 0;
+}
+
+.pf-header {
+    margin-bottom: 1.75rem;
+}
+
+.pf-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.85rem;
+    color: #737373;
+    text-decoration: none;
+    font-family: 'JetBrains Mono', monospace;
+    margin-bottom: 1rem;
+}
+
+.pf-back:hover {
+    color: #059669;
+}
+
+.pf-title {
+    font-size: 1.65rem;
+    font-weight: 800;
+    letter-spacing: -0.025em;
+    color: #0a0a0a;
+    margin-bottom: 0.25rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.pf-title i {
+    color: #059669;
+}
+
+.pf-sub {
+    color: #737373;
+    font-size: 0.95rem;
+    margin: 0;
+}
+
+.pf-card {
+    background: #fff;
+    border: 1px solid #eaeaea;
+    border-radius: 14px;
+    padding: 2rem;
+    box-shadow: 0 8px 24px -16px rgba(0, 0, 0, 0.08);
+}
+
+.pf-field {
+    margin-bottom: 1.25rem;
+}
+
+.pf-label {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #0a0a0a;
+    margin-bottom: 0.4rem;
+}
+
+.pf-required {
+    color: #dc2626;
+    margin-left: 3px;
+}
+
+/* Style all Django-rendered inputs */
+.pf-card input[type="text"],
+.pf-card input[type="email"],
+.pf-card input[type="url"],
+.pf-card select,
+.pf-card textarea {
+    width: 100%;
+    border: 1px solid #e5e5e5;
+    border-radius: 8px;
+    padding: 0.6rem 0.9rem;
+    font-size: 0.95rem;
+    font-family: inherit;
+    color: #0a0a0a;
+    background: #fff;
+    transition: all 0.15s ease;
+}
+
+.pf-card input:focus,
+.pf-card textarea:focus,
+.pf-card select:focus {
+    outline: none;
+    border-color: #059669;
+    box-shadow: 0 0 0 3px #ecfdf5;
+}
+
+.pf-card textarea {
+    min-height: 260px;
+    resize: vertical;
+    line-height: 1.7;
+}
+
+.pf-help {
+    font-size: 0.78rem;
+    color: #737373;
+    margin-top: 0.35rem;
+}
+
+.pf-error {
+    font-size: 0.8rem;
+    color: #dc2626;
+    margin-top: 0.35rem;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.pf-footer {
+    display: flex;
+    gap: 0.75rem;
+    align-items: center;
+    padding-top: 1.5rem;
+    border-top: 1px solid #eaeaea;
+    margin-top: 0.5rem;
+}
+
+.pf-btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: #059669;
+    color: #fff;
+    border: 1px solid #059669;
+    border-radius: 6px;
+    padding: 0.55rem 1.4rem;
+    font-size: 0.95rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    font-family: inherit;
+}
+
+.pf-btn-primary:hover {
+    background: #047857;
+    border-color: #047857;
+}
+
+.pf-btn-ghost {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: transparent;
+    color: #404040;
+    border: 1px solid #e5e5e5;
+    border-radius: 6px;
+    padding: 0.55rem 1.1rem;
+    font-size: 0.92rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.15s ease;
+}
+
+.pf-btn-ghost:hover {
+    background: #fafafa;
+    border-color: #404040;
+    color: #0a0a0a;
+}
+
+/* post_detail.css */
+.pd-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.85rem;
+    color: #737373;
+    text-decoration: none;
+    font-family: 'JetBrains Mono', monospace;
+    margin-bottom: 1.5rem;
+}
+
+.pd-back:hover {
+    color: #059669;
+}
+
+.pd-card {
+    background: #fff;
+    border: 1px solid #eaeaea;
+    border-radius: 14px;
+    padding: 2.5rem;
+    box-shadow: 0 8px 24px -16px rgba(0, 0, 0, 0.08);
+}
+
+.pd-tags {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    margin-bottom: 1.25rem;
+}
+
+.pd-title {
+    font-size: clamp(1.6rem, 4vw, 2.4rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1.2;
+    color: #0a0a0a;
+    margin-bottom: 1.5rem;
+}
+
+.pd-meta-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.pd-author-link {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    color: inherit;
+}
+
+.pd-author-link:hover .pd-author-name {
+    color: #059669;
+}
+
+.pd-avatar {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #059669, #10b981);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 1rem;
+    flex-shrink: 0;
+}
+
+.pd-author-name {
+    font-weight: 600;
+    font-size: 0.92rem;
+    color: #0a0a0a;
+    line-height: 1.3;
+}
+
+.pd-date {
+    font-size: 0.78rem;
+    color: #737373;
+    font-family: 'JetBrains Mono', monospace;
+}
+
+.pd-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.pd-btn-edit,
+.pd-btn-delete {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 0.4rem 0.9rem;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.15s ease;
+}
+
+.pd-btn-edit {
+    background: #ecfdf5;
+    color: #059669;
+    border: 1px solid #a7f3d0;
+}
+
+.pd-btn-edit:hover {
+    background: #d1fae5;
+    color: #047857;
+}
+
+.pd-btn-delete {
+    background: #fef2f2;
+    color: #dc2626;
+    border: 1px solid #fecaca;
+}
+
+.pd-btn-delete:hover {
+    background: #fee2e2;
+    color: #b91c1c;
+}
+
+.pd-hr {
+    border-color: #eaeaea;
+    margin: 1.5rem 0;
+}
+
+.pd-post-image {
+    margin-bottom: 1.75rem;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid #eaeaea;
+}
+
+.pd-post-image img {
+    width: 100%;
+    max-height: 480px;
+    object-fit: cover;
+    display: block;
+}
+
+.pd-content {
+    font-size: 1.05rem;
+    line-height: 1.85;
+    color: #1a1a1a;
+}
+
+.pd-content p {
+    margin-bottom: 1.25rem;
+}
+
+
+/* delete_post.css */
+.del-card {
+    background: #fff;
+    border: 1px solid #eaeaea;
+    border-radius: 14px;
+    padding: 2.5rem;
+    box-shadow: 0 8px 24px -16px rgba(0, 0, 0, 0.08);
+    text-align: center;
+}
+
+.del-icon {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: #fef2f2;
+    border: 1px solid #fecaca;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.75rem;
+    color: #dc2626;
+    margin-bottom: 1.25rem;
+}
+
+.del-title {
+    font-size: 1.6rem;
+    font-weight: 800;
+    letter-spacing: -0.025em;
+    color: #0a0a0a;
+    margin-bottom: 0.4rem;
+}
+
+.del-sub {
+    color: #737373;
+    font-size: 0.95rem;
+    margin-bottom: 1.25rem;
+}
+
+.del-preview {
+    background: #fafafa;
+    border: 1px solid #eaeaea;
+    border-radius: 8px;
+    padding: 1rem 1.25rem;
+    margin-bottom: 1.25rem;
+    text-align: left;
+}
+
+.del-preview-title {
+    font-weight: 700;
+    font-size: 1rem;
+    color: #0a0a0a;
+    margin-bottom: 0.4rem;
+}
+
+.del-preview-meta {
+    font-size: 0.8rem;
+    color: #737373;
+    font-family: 'JetBrains Mono', monospace;
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.del-warn {
+    font-size: 0.9rem;
+    color: #737373;
+    margin-bottom: 0;
+}
+
+.del-footer {
+    display: flex;
+    justify-content: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    padding-top: 1.5rem;
+    border-top: 1px solid #eaeaea;
+    margin-top: 1.5rem;
+}
+
+.del-btn-danger {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: #dc2626;
+    color: #fff;
+    border: 1px solid #dc2626;
+    border-radius: 6px;
+    padding: 0.55rem 1.4rem;
+    font-size: 0.92rem;
+    font-weight: 500;
+    cursor: pointer;
+    font-family: inherit;
+    transition: all 0.15s ease;
+}
+
+.del-btn-danger:hover {
+    background: #b91c1c;
+    border-color: #b91c1c;
+}
+
+.del-btn-cancel {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: transparent;
+    color: #404040;
+    border: 1px solid #e5e5e5;
+    border-radius: 6px;
+    padding: 0.55rem 1.1rem;
+    font-size: 0.92rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.15s ease;
+}
+
+.del-btn-cancel:hover {
+    background: #fafafa;
+    border-color: #404040;
+    color: #0a0a0a;
+}
+
+/* user_posts.css */
+.pd-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.85rem;
+    color: #737373;
+    text-decoration: none;
+    font-family: 'JetBrains Mono', monospace;
+    margin-bottom: 1.25rem;
+}
+
+.pd-back:hover {
+    color: #059669;
+}
+
+.up-author-info {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 0.5rem;
+}
+
+.up-avatar {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #059669, #10b981);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 1.25rem;
+    flex-shrink: 0;
+}
+
+.up-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin: 0 0 0.2rem;
+    color: #0a0a0a;
+}
+
+.up-sub {
+    color: #737373;
+    font-size: 0.88rem;
+    font-family: 'JetBrains Mono', monospace;
+    margin: 0;
+}
+
+.up-empty {
+    text-align: center;
+    padding: 3rem 1rem;
+    background: #fff;
+    border: 1px dashed #eaeaea;
+    border-radius: 10px;
+}
+
+.up-empty i {
+    font-size: 2.5rem;
+    color: #a3a3a3;
+    display: block;
+    margin-bottom: 0.75rem;
+}
+
+.up-empty p {
+    color: #737373;
+    margin: 0;
+}
+
+.up-write-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 0.75rem;
+    background: #059669;
+    color: #fff;
+    padding: 0.5rem 1.25rem;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.up-pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 2.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid #eaeaea;
+}
+
+.up-page-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 0.45rem 1rem;
+    border: 1px solid #e5e5e5;
+    border-radius: 6px;
+    font-size: 0.88rem;
+    font-weight: 500;
+    color: #0a0a0a;
+    text-decoration: none;
+    transition: all 0.15s ease;
+}
+
+.up-page-btn:hover {
+    border-color: #059669;
+    color: #059669;
+    background: #ecfdf5;
+}
+
+.up-page-info {
+    font-size: 0.85rem;
+    color: #737373;
+    font-family: 'JetBrains Mono', monospace;
+}
+

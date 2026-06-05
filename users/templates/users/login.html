@@ -17,7 +17,6 @@ Sign in to your techdesk account.
         <div class="row justify-content-center">
             <div class="col-md-8 col-lg-6 col-xl-5">
 
-                <!-- Header above card -->
                 <div class="text-center mb-4">
                     <a href="{% url 'blog-home' %}" class="auth-logo">
                         <span class="mark">&lt;/&gt;</span>
@@ -27,10 +26,8 @@ Sign in to your techdesk account.
                     <p class="auth-sub mb-0">Sign in to continue to your account.</p>
                 </div>
 
-                <!-- Card -->
                 <div class="auth-card">
 
-                    <!-- Form-wide errors (wrong credentials, etc.) -->
                     {% if form.non_field_errors %}
                     <div class="auth-alert">
                         {% for error in form.non_field_errors %}
@@ -44,7 +41,6 @@ Sign in to your techdesk account.
                         {# CSRF token - required for every POST form #}
                         {% csrf_token %}
 
-                        <!-- Username -->
                         <div class="mb-3">
                             <label for="{{ form.username.id_for_label }}" class="auth-label d-block">Username</label>
                             {{ form.username }}
@@ -53,7 +49,6 @@ Sign in to your techdesk account.
                             {% endfor %}
                         </div>
 
-                        <!-- Password -->
                         <div class="mb-2">
                             <label for="{{ form.password.id_for_label }}" class="auth-label d-block">Password</label>
                             {{ form.password }}
@@ -62,12 +57,10 @@ Sign in to your techdesk account.
                             {% endfor %}
                         </div>
 
-                        <!-- Forgot password (optional, link to # for now) -->
                         <div class="auth-forgot">
-                            <a href="#">Forgot password?</a>
+                            <a href="{% url 'password_reset' %}">Forgot password?</a>
                         </div>
 
-                        <!-- Hidden 'next' input so Django redirects properly after login -->
                         {% if next %}
                         <input type="hidden" name="next" value="{{ next }}">
                         {% endif %}

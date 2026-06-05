@@ -18,12 +18,10 @@ You have been signed out of techdesk.
             <div class="col-md-8 col-lg-6 col-xl-5">
 
                 <!-- Logo (small, above card) -->
-                <div class="text-center mb-4">
-                    <a href="{% url 'blog-home' %}" class="auth-logo">
-                        <span class="mark">&lt;/&gt;</span>
-                        <span>techdesk</span>
-                    </a>
-                </div>
+                <form action="{% url 'logout' %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit">Logout</button>
+                </form>
 
                 <!-- Card -->
                 <div class="auth-card">

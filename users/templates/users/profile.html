@@ -1,67 +1,87 @@
 {% extends 'blog/base.html' %}
 {% load static %}
 
-{% block title %}
-{{ profile_user.username }} - techdesk
-{% endblock %}
+{% block title %}{{ profile_user.username }} - techdesk{% endblock %}
 
-{% block meta_description %}
-Profile of {{ profile_user.username }} on techdesk.
-{% endblock %}
-
+{% block meta_description %}Profile of {{ profile_user.username }} on techdesk.{% endblock %}
 
 {% block content %}
 
-<!-- PROFILE HEADER -->
 <section class="profile-wrap">
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-lg-9">
-                <div class="profile-card">
 
+                <!-- SUCCESS MESSAGE -->
+                {% if messages %}
+                {% for message in messages %}
+                <div class="td-alert-success mb-3">
+                    <i class="bi bi-check-circle"></i> {{ message }}
+                </div>
+                {% endfor %}
+                {% endif %}
+
+                <!-- ===================== VIEW MODE ===================== -->
+                <div id="profile-view" class="profile-card">
                     <div class="profile-header">
 
-                        <!-- Avatar: first letter of username -->
                         <div class="profile-avatar">
+                            {% if profile_user.profile.image %}
+                            <img src="{{ profile_user.profile.image.url }}" alt="{{ profile_user.username }}" class="rounded-circle" style="width:96px;height:96px;object-fit:cover;">
+                            {% else %}
                             {{ profile_user.username|first|upper }}
+                            {% endif %}
                         </div>
 
-                        <!-- Name, username, meta -->
                         <div class="profile-info">
-                            <h1 class="profile-name">
-                                {% if profile_user.first_name or profile_user.last_name %}
-                                {{ profile_user.first_name }} {{ profile_user.last_name }}
-                                {% else %}
-                                {{ profile_user.username }}
-                                {% endif %}
-                            </h1>
+                            <h1 class="profile-name">{% if profile_user.first_name %}{{ profile_user.first_name }} {{ profile_user.last_name }}{% else %}{{ profile_user.username }}{% endif %}</h1>
                             <p class="profile-username">@{{ profile_user.username }}</p>
 
+                            {% if profile_user.profile.bio %}
+                            <div class="profile-about-block">
+                                <span class="profile-about-label"><i class="bi bi-person-lines-fill"></i> About</span>
+                                <p class="profile-bio">{{ profile_user.profile.bio }}</p>
+                            </div>
+                            {% endif %}
+
                             <div class="profile-meta">
-                                <span><i class="bi bi-calendar3"></i> Joined {{ profile_user.date_joined|date:"M Y"
-                                    }}</span>
-                                {% if profile_user.email and user == profile_user %}
+                                <span><i class="bi bi-calendar3"></i> Joined {{ profile_user.date_joined|date:"M Y" }}</span>
+                                {% if profile_user.profile.location %}
+                                <span><i class="bi bi-geo-alt"></i> {{ profile_user.profile.location }}</span>
+                                {% endif %}
+                                {% if profile_user.profile.website %}
+                                <span><i class="bi bi-link-45deg"></i> <a href="{{ profile_user.profile.website }}" target="_blank" rel="noopener">{{ profile_user.profile.website }}</a></span>
+                                {% endif %}
+                                {% if user == profile_user %}
                                 <span><i class="bi bi-envelope"></i> {{ profile_user.email }}</span>
+                                {% endif %}
+                            </div>
+
+                            <div class="profile-socials">
+                                {% if profile_user.profile.github %}
+                                <a href="https://github.com/{{ profile_user.profile.github }}" target="_blank" rel="noopener" title="GitHub"><i class="bi bi-github"></i></a>
+                                {% endif %}
+                                {% if profile_user.profile.twitter %}
+                                <a href="https://twitter.com/{{ profile_user.profile.twitter }}" target="_blank" rel="noopener" title="Twitter"><i class="bi bi-twitter-x"></i></a>
+                                {% endif %}
+                                {% if profile_user.profile.linkedin %}
+                                <a href="https://linkedin.com/in/{{ profile_user.profile.linkedin }}" target="_blank" rel="noopener" title="LinkedIn"><i class="bi bi-linkedin"></i></a>
                                 {% endif %}
                             </div>
                         </div>
 
-                        <!-- Action button: Edit if own profile, otherwise placeholder -->
                         <div class="profile-actions">
                             {% if user.is_authenticated and user == profile_user %}
-                            <a href="#" class="profile-btn-primary">
-                                <i class="bi bi-pencil"></i> Edit profile
-                            </a>
-                            {% else %}
-                            <a href="#" class="profile-btn-ghost">
-                                <i class="bi bi-person-plus"></i> Follow
-                            </a>
+                            <button onclick="toggleEdit()" class="profile-btn-primary" id="edit-btn">
+                                <i class="bi bi-pencil"></i> Edit Profile
+                            </button>
+                            {% elif user.is_authenticated %}
+                            <a href="#" class="profile-btn-ghost"><i class="bi bi-person-plus"></i> Follow</a>
                             {% endif %}
                         </div>
 
                     </div>
 
-                    <!-- Stats -->
                     <div class="profile-stats">
                         <div class="profile-stat">
                             <div class="profile-stat-num">{{ posts|length }}</div>
@@ -76,47 +96,107 @@ Profile of {{ profile_user.username }} on techdesk.
                             <div class="profile-stat-label">Following</div>
                         </div>
                     </div>
-
                 </div>
-            </div>
-        </div>
-    </div>
-</section>
 
-<!-- POSTS BY USER -->
-<section class="profile-posts">
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-lg-9">
+                <!-- ===================== EDIT MODE ===================== -->
+                {% if user.is_authenticated and user == profile_user %}
+                <div id="profile-edit" class="profile-card" style="display:none;">
 
-                <h2 class="profile-posts-title">
-                    Posts <span>({{ posts|length }})</span>
-                </h2>
-
-                {% if posts %}
-                {% for post in posts %}
-                <article class="profile-post">
-                    <h3 class="profile-post-title">
-                        <a href="#">{{ post.title }}</a>
-                    </h3>
-                    <p class="profile-post-excerpt">
-                        {{ post.content|truncatewords:28 }}
-                    </p>
-                    <div class="profile-post-meta">
-                        <span><i class="bi bi-calendar3"></i> {{ post.date|date:"M d, Y" }}</span>
-                        <span class="dot">.</span>
-                        <span>4 min read</span>
+                    <div class="edit-header">
+                        <h2 class="edit-title"><i class="bi bi-pencil-square"></i> Edit Profile</h2>
+                        <button onclick="toggleEdit()" class="profile-btn-ghost"><i class="bi bi-x-lg"></i> Cancel</button>
                     </div>
-                </article>
-                {% endfor %}
-                {% else %}
-                <div class="profile-empty">
-                    <i class="bi bi-journal-text"></i>
-                    {% if user == profile_user %}
-                    <p>You haven't published anything yet. Write your first post!</p>
-                    {% else %}
-                    <p>{{ profile_user.username }} hasn't published anything yet.</p>
-                    {% endif %}
+
+                    <form method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+
+                        <!-- Profile Picture -->
+                        <div class="edit-section">
+                            <h3 class="edit-section-title">Profile Picture</h3>
+                            <div class="edit-avatar-row">
+                                <div class="profile-avatar edit-avatar-preview" id="avatar-preview">
+                                    {% if profile_user.profile.image %}
+                                    <img src="{{ profile_user.profile.image.url }}" alt="{{ profile_user.username }}" class="rounded-circle" style="width:96px;height:96px;object-fit:cover;">
+                                    {% else %}
+                                    {{ profile_user.username|first|upper }}
+                                    {% endif %}
+                                </div>
+                                <div>
+                                    <label class="edit-label">Upload new picture</label>
+                                    {{ p_form.image }}
+                                    <p class="edit-help">JPG or PNG. Shown as your profile picture.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Account Info -->
+                        <div class="edit-section">
+                            <h3 class="edit-section-title">Account Info</h3>
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label class="edit-label">Username</label>
+                                    {{ u_form.username }}
+                                    {% if u_form.username.errors %}
+                                    <div class="edit-error">{{ u_form.username.errors|join:", " }}</div>
+                                    {% endif %}
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="edit-label">Email</label>
+                                    {{ u_form.email }}
+                                    {% if u_form.email.errors %}
+                                    <div class="edit-error">{{ u_form.email.errors|join:", " }}</div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Profile Details -->
+                        <div class="edit-section">
+                            <h3 class="edit-section-title">Profile Details</h3>
+                            <div class="row g-3">
+                                <div class="col-12">
+                                    <label class="edit-label">Bio</label>
+                                    {{ p_form.bio }}
+                                    {% if p_form.bio.errors %}
+                                    <div class="edit-error">{{ p_form.bio.errors|join:", " }}</div>
+                                    {% endif %}
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="edit-label">Location</label>
+                                    {{ p_form.location }}
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="edit-label">Website</label>
+                                    {{ p_form.website }}
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Social Links -->
+                        <div class="edit-section">
+                            <h3 class="edit-section-title">Social Links <span class="edit-section-note">(username only, not full URL)</span></h3>
+                            <div class="row g-3">
+                                <div class="col-md-4">
+                                    <label class="edit-label"><i class="bi bi-github"></i> GitHub</label>
+                                    {{ p_form.github }}
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="edit-label"><i class="bi bi-twitter-x"></i> Twitter</label>
+                                    {{ p_form.twitter }}
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="edit-label"><i class="bi bi-linkedin"></i> LinkedIn</label>
+                                    {{ p_form.linkedin }}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="edit-footer">
+                            <button type="submit" class="profile-btn-primary px-4"><i class="bi bi-check-lg"></i> Save Changes</button>
+                            <button type="button" onclick="toggleEdit()" class="profile-btn-ghost">Cancel</button>
+                        </div>
+
+                    </form>
                 </div>
                 {% endif %}
 
@@ -125,4 +205,57 @@ Profile of {{ profile_user.username }} on techdesk.
     </div>
 </section>
 
+<!-- POSTS -->
+<section class="profile-posts">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-9">
+
+                <h2 class="profile-posts-title">Posts <span>({{ posts|length }})</span></h2>
+
+                {% if posts %}
+                    {% for post in posts %}
+                    <article class="profile-post">
+                        <h3 class="profile-post-title"><a href="#">{{ post.title }}</a></h3>
+                        <p class="profile-post-excerpt">{{ post.content|truncatewords:28 }}</p>
+                        <div class="profile-post-meta">
+                            <span><i class="bi bi-calendar3"></i> {{ post.date_posted|date:"M d, Y" }}</span>
+                            <span class="dot">.</span>
+                            <span>4 min read</span>
+                        </div>
+                    </article>
+                    {% endfor %}
+                {% else %}
+                    <div class="profile-empty">
+                        <i class="bi bi-journal-text"></i>
+                        {% if user == profile_user %}
+                        <p>You haven't published anything yet. <a href="#" style="color:#059669;">Write your first post!</a></p>
+                        {% else %}
+                        <p>{{ profile_user.username }} hasn't published anything yet.</p>
+                        {% endif %}
+                    </div>
+                {% endif %}
+
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+function toggleEdit() {
+    var viewCard = document.getElementById('profile-view');
+    var editCard = document.getElementById('profile-edit');
+    if (editCard.style.display === 'none') {
+        viewCard.style.display = 'none';
+        editCard.style.display = 'block';
+        editCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    } else {
+        editCard.style.display = 'none';
+        viewCard.style.display = 'block';
+    }
+}
+</script>
 {% endblock %}

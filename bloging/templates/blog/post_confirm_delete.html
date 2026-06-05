@@ -1,0 +1,56 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+
+{% block title %}Delete Post - techdesk{% endblock %}
+
+{% block content %}
+
+<section style="min-height:calc(100vh - 70px);background:#fafafa;display:flex;align-items:center;padding:3rem 0;">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8 col-lg-6">
+                <div class="del-card">
+
+                    <!-- Warning icon -->
+                    <div class="del-icon">
+                        <i class="bi bi-exclamation-triangle"></i>
+                    </div>
+
+                    <h1 class="del-title">Delete this post?</h1>
+                    <p class="del-sub">You are about to permanently delete:</p>
+
+                    <!-- Post preview -->
+                    <div class="del-preview">
+                        <div class="del-preview-title">{{ post.title }}</div>
+                        <div class="del-preview-meta">
+                            <span><i class="bi bi-person"></i> {{ post.author.username }}</span>
+                            <span>·</span>
+                            <span><i class="bi bi-calendar3"></i> {{ post.date_posted|date:"M d, Y" }}</span>
+                        </div>
+                    </div>
+
+                    <p class="del-warn">This action <strong>cannot be undone.</strong> The post will be permanently
+                        removed.</p>
+
+                    <!-- Form for delete (must be POST) -->
+                    <form method="POST">
+                        {% csrf_token %}
+                        <div class="del-footer">
+                            <button type="submit" class="del-btn-danger">
+                                <i class="bi bi-trash3"></i> Yes, Delete Post
+                            </button>
+                            <a href="{% url 'post-detail' post.id %}" class="del-btn-cancel">
+                                <i class="bi bi-x-lg"></i> Cancel
+                            </a>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+{% endblock %}

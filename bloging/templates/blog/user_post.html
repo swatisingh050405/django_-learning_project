@@ -1,0 +1,124 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+
+{% block title %}Posts by {{ view.kwargs.username }} - techdesk{% endblock %}
+
+{% block content %}
+
+<section style="padding:3rem 0;background:#fafafa;min-height:70vh;">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-9">
+
+                <a href="{% url 'blog-home' %}" class="pd-back"><i class="bi bi-arrow-left"></i> All posts</a>
+
+                <div class="up-author-info d-flex align-items-center mt-4 mb-4">
+                    {% if posts.0.author.profile.image %}
+                    <img src="{{ posts.0.author.profile.image.url }}" class="up-avatar-img"
+                        style="width:70px; height:70px; object-fit:cover; border-radius:50%; margin-right:20px; border: 3px solid #059669;">
+                    {% else %}
+                    <img src="/media/default.png" class="up-avatar-img"
+                        style="width:70px; height:70px; object-fit:cover; border-radius:50%; margin-right:20px; border: 3px solid #059669;"
+                        onerror="this.style.display='none'; document.getElementById('letter-avatar').style.display='flex';">
+
+                    <div id="letter-avatar" class="up-avatar" style="display:none;">{{ view.kwargs.username|first|upper
+                        }}</div>
+                    {% endif %}
+
+                    <div>
+                    <h1 class="up-title" style="margin: 0;">
+                        Posts by <span style="color:#059669;">{{ view.kwargs.username }}</span>
+                    </h1>
+                    <p class="up-sub text-muted mb-0">
+                        {{ page_obj.paginator.count }} post{{ page_obj.paginator.count|pluralize }} published
+                    </p>
+                    </div>
+                </div>
+
+                {% if posts %}
+                <div class="row g-4 mt-1">
+                    {% for post in posts %}
+                    <div class="col-md-6 col-lg-4">
+                        <article class="td-card h-100">
+
+                            <a href="{% url 'post-detail' post.pk %}" class="td-card-thumb-link">
+                                {% if post.image %}
+                                <div class="td-card-thumb" style="background-image:url('{{ post.image.url }}');"></div>
+                                {% else %}
+                                <div class="td-card-thumb"
+                                    style="background-color: #f3f4f6; display: flex; align-items: center; justify-content: center;">
+                                    <i class="bi bi-image text-muted" style="font-size: 1.5rem;"></i>
+                                </div>
+                                {% endif %}
+                            </a>
+
+                            <div class="td-card-body">
+                                <div class="td-card-tags">
+                                    <span class="td-tag td-tag-sm">#Tech</span>
+                                </div>
+                                <h3 class="td-card-title">
+                                    <a href="{% url 'post-detail' post.pk %}">{{ post.title }}</a>
+                                </h3>
+                                <p class="td-card-excerpt">{{ post.content|truncatewords:22 }}</p>
+
+                                <div class="td-card-meta">
+                                    {% if post.author.profile.image %}
+                                    <img src="{{ post.author.profile.image.url }}" class="td-avatar"
+                                        style="width:36px;height:36px;object-fit:cover;border-radius:50%;">
+                                    {% else %}
+                                    <img src="/media/default.png" class="td-avatar"
+                                        style="width:36px;height:36px;object-fit:cover;border-radius:50%;"
+                                        onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                                    <div class="td-avatar" style="display:none;">{{ post.author.username|first|upper }}
+                                    </div>
+                                    {% endif %}
+
+                                    <div>
+                                        <div class="td-card-author">{{ post.author.username }}</div>
+                                        <div class="td-card-date">{{ post.created_at|date:"M d, Y" }} <span
+                                                class="td-card-dot">.</span> 4 min read</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+                    {% endfor %}
+                </div>
+
+                {% if is_paginated %}
+                <div class="up-pagination mt-5 d-flex justify-content-center align-items-center gap-3">
+                    {% if page_obj.has_previous %}
+                    <a href="?page={{ page_obj.previous_page_number }}"
+                        class="up-page-btn btn btn-sm btn-outline-success">
+                        <i class="bi bi-arrow-left"></i> Previous
+                    </a>
+                    {% endif %}
+
+                    <span class="up-page-info text-muted">Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages
+                        }}</span>
+
+                    {% if page_obj.has_next %}
+                    <a href="?page={{ page_obj.next_page_number }}" class="up-page-btn btn btn-sm btn-outline-success">
+                        Next <i class="bi bi-arrow-right"></i>
+                    </a>
+                    {% endif %}
+                </div>
+                {% endif %}
+
+                {% else %}
+                <div class="up-empty text-center py-5">
+                    <i class="bi bi-journal-text text-muted" style="font-size: 3rem;"></i>
+                    <p class="mt-3">No posts yet from {{ view.kwargs.username }}.</p>
+                    {% if user.is_authenticated and user.username == view.kwargs.username %}
+                    <a href="{% url 'post-create' %}" class="btn btn-success up-write-btn"><i class="bi bi-plus-lg"></i>
+                        Write your first post</a>
+                    {% endif %}
+                </div>
+                {% endif %}
+
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

@@ -33,8 +33,11 @@ def profile(request):
         p_form = ProfileUpdateForm(instance=request.user.profile)
 
     context = {
-        'u_form': u_form,
-        'p_form': p_form
+        'profile_user': request.user,   # Add the user to the context for profile display
+        'u_form': u_form, # Add the user update form to the context
+        'p_form': p_form,
+        
+        'posts': []  # Add an empty list for posts, you can replace it with actual posts later
     }
 
     return render(request, 'users/profile.html', context)
